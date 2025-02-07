@@ -8,7 +8,7 @@ newrelic:
   distributedTracer: true
 
 wmsService:
-  baseUrl: "http://tenantapi.omnifulinfra.com"
+  baseUrl: "http://localhost:8081"
   timeout: 5
 
 env: "staging"
