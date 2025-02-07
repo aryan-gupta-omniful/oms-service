@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	oms_kafka "oms-service/kafka"
 	"oms-service/models"
 	"strings"
 )
@@ -36,6 +37,11 @@ func ValidateOrders(order *models.Order) {
 		fmt.Println("response of post request: ", responsePost.Message)
 		if responsePost.Message == "Validation successful" {
 			log.Printf("Order with Order ID: %v having product %v from hub %v is VALID \n", order.ID, orderItem.SKUID, orderItem.HubID)
+
+			// Publish This Order Item in a message to Kafka
+			bytesOrderItem, _ := json.Marshal(orderItem)
+			oms_kafka.PublishMessageToKafka(bytesOrderItem, order.ID)
+
 		} else {
 			log.Printf("Order with Order ID: %v having product %v from hub %v is invalid \n", order.ID, orderItem.SKUID, orderItem.HubID)
 		}

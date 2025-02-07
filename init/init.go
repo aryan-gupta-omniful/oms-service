@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	// "oms-service/pkg/redis"
+	oms_kafka "oms-service/kafka"
 	"time"
 
 	"github.com/omniful/go_commons/config"
@@ -19,7 +19,8 @@ func Initialize(ctx context.Context) {
 	initializeLog(ctx)
 	initializeDB(ctx)
 	// initializeRedis(ctx)
-	// initializeKafkaProducer(ctx)
+	oms_kafka.InitializeKafkaProducer()
+	go oms_kafka.InitializeKafkaConsumer(ctx)
 	initialiseSQSProducer(ctx)
 	initialiseSQSConsumer(ctx)
 }
@@ -70,18 +71,4 @@ func getDatabaseUri() string {
 // 	})
 // 	log.InfofWithContext(ctx, "Initialized Redis Client")
 // 	redis.SetClient(r)
-// }
-
-// Initialize Kafka Producer
-// func initializeKafkaProducer(ctx context.Context) {
-// 	kafkaBrokers := config.GetStringSlice(ctx, "onlineKafka.brokers")
-// 	kafkaClientID := config.GetString(ctx, "onlineKafka.clientId")
-// 	kafkaVersion := config.GetString(ctx, "onlineKafka.version")
-// 	producer := kafka.NewProducer(
-// 		kafka.WithBrokers(kafkaBrokers),
-// 		kafka.WithClientID(kafkaClientID),
-// 		kafka.WithKafkaVersion(kafkaVersion),
-// 	)
-// 	log.Printf("Initialized Kafka Producer")
-// 	kafka_producer.Set(producer)
 // }
