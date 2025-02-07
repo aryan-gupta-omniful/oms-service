@@ -34,7 +34,6 @@ package init
 // 	// Create SQS worker
 // 	sqsWorker := workers.NewSQSWorker(
 // 		sqsClient,
-// 		"YOUR_SQS_QUEUE_URL", // Get this from config
 // 		bulkWorker,
 // 	)
 
