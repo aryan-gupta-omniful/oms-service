@@ -24,10 +24,6 @@ func Initialize(ctx context.Context) {
 	initialiseSQSConsumer(ctx)
 }
 
-func getDatabaseUri() string {
-	return "mongodb+srv://aryangupta8291:MDTQkwuw39Ow2yNq@oms-service-db.zimyg.mongodb.net/?retryWrites=true&w=majority&appName=oms-service-db"
-}
-
 // Initialize logging
 func initializeLog(ctx context.Context) {
 	err := log.InitializeLogger(
@@ -61,6 +57,10 @@ func initializeDB(c context.Context) {
 	fmt.Println("Successfully connected to MongoDB!")
 }
 
+func getDatabaseUri() string {
+	return "mongodb+srv://aryangupta8291:MDTQkwuw39Ow2yNq@oms-service-db.zimyg.mongodb.net/?retryWrites=true&w=majority&appName=oms-service-db"
+}
+
 // Initialize Redis
 // func initializeRedis(ctx context.Context) {
 // 	r := oredis.NewClient(&oredis.Config{
@@ -77,7 +77,6 @@ func initializeDB(c context.Context) {
 // 	kafkaBrokers := config.GetStringSlice(ctx, "onlineKafka.brokers")
 // 	kafkaClientID := config.GetString(ctx, "onlineKafka.clientId")
 // 	kafkaVersion := config.GetString(ctx, "onlineKafka.version")
-
 // 	producer := kafka.NewProducer(
 // 		kafka.WithBrokers(kafkaBrokers),
 // 		kafka.WithClientID(kafkaClientID),
