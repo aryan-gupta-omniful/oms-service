@@ -33,6 +33,8 @@ func (h *MessageHandler) Process(ctx context.Context, message *pubsub.Message) e
 		return err
 	}
 
+	// Entire fLow finishes here
+
 	return nil
 }
 

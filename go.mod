@@ -9,6 +9,7 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/omniful/go_commons v0.4.65
 	go.mongodb.org/mongo-driver v1.17.2
+	gorm.io/gorm v1.24.2
 )
 
 require (
@@ -96,5 +97,4 @@ require (
 	google.golang.org/protobuf v1.35.1 // indirect
 	gopkg.in/guregu/null.v4 v4.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.24.2 // indirect
 )

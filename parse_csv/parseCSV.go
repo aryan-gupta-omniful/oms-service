@@ -85,7 +85,7 @@ func ParseCSV(filePath string) ([]*models.Order, error) {
 					BillingAddress:  "sample address",
 					ShippingAddress: "sample address",
 					InvoiceID:       999,
-					TenantID:        111,
+					TenantID:        "111",
 					OrderItems:      []models.OrderItem{}, // Start with an empty slice of items
 				}
 				// Add the new order to the map

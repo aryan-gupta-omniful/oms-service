@@ -6,36 +6,50 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	http2 "net/http"
 	"oms-service/models"
+	"time"
+
+	"github.com/omniful/go_commons/http"
+
+	interservice_client "github.com/omniful/go_commons/interservice-client"
 )
 
 func ValidateInventory(ctx context.Context, order models.KafkaResponseOrderMessage) error {
 
 	log.Printf("Validating inventory for order ID: %s \n", order.OrderID)
 
-	client := &http2.Client{}
-	url := "http://localhost:8081/api/v1/orders/validate_inventory"
+	// client := &http2.Client{}
+	// url := "http://localhost:8081/api/v1/orders/validate_inventory"
 
-	reqBody, err := json.Marshal(order)
+	config := interservice_client.Config{
+		ServiceName: "oms-service",
+		BaseURL:     "http://localhost:8081/api/v1/orders/",
+		Timeout:     5 * time.Second,
+	}
+
+	client, err := interservice_client.NewClientWithConfig(config)
 	if err != nil {
 		return err
 	}
 
-	req, err := http2.NewRequest(http2.MethodPost, url, bytes.NewBuffer(reqBody))
+	url := config.BaseURL + "validate_inventory"
+	bodyBytes, err := json.Marshal(order)
 	if err != nil {
 		return err
 	}
 
-	req.Header.Set("Content-Type", "application/json")
-	resp, err := client.Do(req)
-	if err != nil {
-		return err
+	req := &http.Request{
+		Url:     url, // Use configured URL
+		Body:    bytes.NewReader(bodyBytes),
+		Timeout: 7 * time.Second,
+		Headers: map[string][]string{
+			"Content-Type": {"application/json"},
+		},
 	}
-	defer resp.Body.Close()
 
-	if resp.StatusCode != http2.StatusOK {
-		return fmt.Errorf("inventory validation failed with status code: %d", resp.StatusCode)
+	_, intersvcErr := client.Post(req, "/")
+	if intersvcErr.StatusCode.Is4xx() {
+		fmt.Println("inventory validation failed after  interservice call to wms-service ")
 	} else {
 		fmt.Println("Inventory validation successful !!!!!!!!!!!")
 	}
