@@ -4,11 +4,8 @@ import (
 	"context"
 	"oms-service/controllers"
 
-	// "github.com/newrelic/go-agent/v3/integrations/nrgin"
-
 	"github.com/omniful/go_commons/http"
 	"github.com/omniful/go_commons/log"
-	// "github.com/omniful/go_commons/newrelic"
 )
 
 func Initialize(ctx context.Context, s *http.Server) error {
@@ -21,8 +18,6 @@ func Initialize(ctx context.Context, s *http.Server) error {
 		// Hubs Routes
 		hubs := v1.Group("/orders")
 		{
-			hubs.GET("", controllers.GetAllOrders)
-			hubs.GET("/:id", controllers.GetOrderByID)
 			hubs.POST("/bulkorder", controllers.CreateBulkOrders)
 		}
 	}

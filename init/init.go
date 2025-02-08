@@ -40,7 +40,7 @@ func initializeDB(c context.Context) {
 	fmt.Println("Connecting to mongo...")
 	ctx, cancel := context.WithTimeout(c, 10*time.Second)
 	defer cancel()
-	clientOptions := options.Client().ApplyURI(getDatabaseUri())
+	clientOptions := options.Client().ApplyURI(getDatabaseUri(c))
 
 	var err error
 	DB, err = mongo.Connect(ctx, clientOptions)
@@ -58,17 +58,6 @@ func initializeDB(c context.Context) {
 	fmt.Println("Successfully connected to MongoDB!")
 }
 
-func getDatabaseUri() string {
-	return "mongodb+srv://aryangupta8291:MDTQkwuw39Ow2yNq@oms-service-db.zimyg.mongodb.net/?retryWrites=true&w=majority&appName=oms-service-db"
+func getDatabaseUri(ctx context.Context) string {
+	return config.GetString(ctx, "omsService.mongoURI")
 }
-
-// Initialize Redis
-// func initializeRedis(ctx context.Context) {
-// 	r := oredis.NewClient(&oredis.Config{
-// 		ClusterMode: config.GetBool(ctx, "redis.clusterMode"),
-// 		Hosts:       config.GetStringSlice(ctx, "redis.hosts"),
-// 		DB:          config.GetUint(ctx, "redis.db"),
-// 	})
-// 	log.InfofWithContext(ctx, "Initialized Redis Client")
-// 	redis.SetClient(r)
-// }

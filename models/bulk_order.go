@@ -18,7 +18,7 @@ type Order struct {
 	Status          string      `bson:"status" json:"status"`
 	BillingAddress  interface{} `bson:"billing_address" json:"billing_address"`
 	ShippingAddress interface{} `bson:"shipping_address" json:"shipping_address"`
-	InvoiceID       interface{} `bson:"invoice_id" json:"invoice_id"`
+	InvoiceID       string      `bson:"invoice_id" json:"invoice_id"`
 	TenantID        string      `bson:"tenant_id" json:"tenant_id"`
 }
 

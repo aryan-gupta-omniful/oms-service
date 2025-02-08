@@ -16,14 +16,6 @@ func GetHealth(ctx *gin.Context) {
 	fmt.Println("OMS Server is working absolutely fine - OK")
 }
 
-func GetAllOrders(ctx *gin.Context) {
-	fmt.Println("GetAllOrders")
-}
-
-func GetOrderByID(ctx *gin.Context) {
-	fmt.Println("GetOrderByID")
-}
-
 func CreateBulkOrders(ctx *gin.Context) {
 	var request models.BulkOrderRequest
 	if err := ctx.ShouldBindJSON(&request); err != nil {

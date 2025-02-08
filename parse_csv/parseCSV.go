@@ -84,7 +84,7 @@ func ParseCSV(filePath string) ([]*models.Order, error) {
 					Status:          "on_hold",
 					BillingAddress:  "sample address",
 					ShippingAddress: "sample address",
-					InvoiceID:       999,
+					InvoiceID:       "999",
 					TenantID:        "111",
 					OrderItems:      []models.OrderItem{}, // Start with an empty slice of items
 				}

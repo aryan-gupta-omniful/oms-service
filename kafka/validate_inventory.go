@@ -18,9 +18,6 @@ func ValidateInventory(ctx context.Context, order models.KafkaResponseOrderMessa
 
 	log.Printf("Validating inventory for order ID: %s \n", order.OrderID)
 
-	// client := &http2.Client{}
-	// url := "http://localhost:8081/api/v1/orders/validate_inventory"
-
 	config := interservice_client.Config{
 		ServiceName: "oms-service",
 		BaseURL:     "http://localhost:8081/api/v1/orders/",

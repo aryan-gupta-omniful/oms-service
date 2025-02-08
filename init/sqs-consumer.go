@@ -63,7 +63,4 @@ func initialiseSQSConsumer(ctx context.Context) {
 	if err := repository.InsertOrders(ctx, orders, DB); err != nil {
 		log.Printf("Error saving orders to database: %v", err)
 	}
-
-	// Interservice Call to WMS to check
-
 }

@@ -33,7 +33,7 @@ func (h *MessageHandler) Process(ctx context.Context, message *pubsub.Message) e
 		return err
 	}
 
-	// Entire fLow finishes here
+	// ENTIRE PROJECT FLOW FINISHES HERE
 
 	return nil
 }
