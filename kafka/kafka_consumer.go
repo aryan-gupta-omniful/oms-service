@@ -27,6 +27,11 @@ func (h *MessageHandler) Process(ctx context.Context, message *pubsub.Message) e
 	}
 
 	// Call WMS Inventory Checking logic from here
+	err = ValidateInventory(ctx, order)
+	if err != nil {
+		log.WithError(err).Error("Inventory validation failed \n")
+		return err
+	}
 
 	return nil
 }
@@ -36,7 +41,7 @@ func (h *MessageHandler) Handle(ctx context.Context, msg *pubsub.Message) error 
 	return nil
 }
 
-// Initialize Kafka Producer
+// Initialize Kafka Consumer
 func InitializeKafkaConsumer(ctx context.Context) {
 	consumer := kafka.NewConsumer(
 		kafka.WithBrokers([]string{"localhost:9092"}),
